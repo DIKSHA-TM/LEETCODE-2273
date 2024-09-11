@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<string.h>
+
+int fun(char str1[],char str2[])
+{
+    char temp1[100];
+    char temp2[100];
+    int count=0;
+    strcpy(temp1,str1);
+    strcpy(temp2,str2);
+    if(strlen(str1)!=strlen(str2))
+    return 0;
+    else
+    {
+        for(int i=0;i<strlen(temp1);i++)
+        {
+            for(int j=0;j<strlen(temp2);j++)
+            {
+                if(temp1[i]==temp2[j])
+                {
+                    count++;
+                    for(int k=j;k<strlen(temp2);k++)
+                    {
+                        temp2[k]=temp2[k+1];
+                    }
+                }
+            }
+        }
+        if(count==strlen(str1))
+        return 1;
+        else
+        return 0;
+    }
+}
+void main()
+{
+   
+    int n;
+    scanf("%d",&n);
+    char str[n][123];
+    for(int i=0;i<n;i++)
+    {
+        scanf("%s",&str[i]);
+    }
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            if(fun(str[i],str[j])==1)
+            {
+                for(int k=j;k<n;k++)
+                {
+                    strcpy(str[k],str[k+1]);
+                }
+                j--;
+                n--;
+            }
+            
+        }
+        for(int w=i-1;w>=0;w--)
+        {
+            if(fun(str[i],str[w])==1)
+            {
+                for(int k=w;k<n;k++)
+                {
+                    strcpy(str[k],str[k+1]);
+                }
+                w--;
+                n--;
+            }
+            
+        }
+    }
+    for(int i=0;i<n;i++)
+    {
+        printf("%s ",str[i]);
+    }
+}
